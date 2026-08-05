@@ -1,0 +1,15 @@
+# Data and deliverables live in the Drive project folder, never in this repo.
+# These rules are a safety net in case a data/output file ever gets dropped in here by accident.
+*.dta
+*.dtasgn
+*.log
+*.xlsx
+*.xlsm
+*.csv
+*.docx
+*.gph
+*.png
+Data/
+Output/
+Logs/
+.DS_Store
