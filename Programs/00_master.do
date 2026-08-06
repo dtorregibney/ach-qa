@@ -15,3 +15,5 @@ do "02_reshape_long.do"                    // reshape wide (subgroup-in-varname)
 do "03_suppression_and_destring.do"        // flag TFS-suppressed cells, then destring the count variables
 do "04_scope_and_missing_flags.do"         // drop ALL aggregate rollup rows; resolves is_peer_school/is_dli_school missingness
 do "05_validate.do"                        // range checks, tier-sum check, count/percent alignment; writes milestones_clean.dta
+do "06_fix_variable_labels.do"             // every variable gets a sentence-case label (raw labels were ALL_CAPS or missing)
+do "07_data_dictionary.do"                 // export milestones_clean_dictionary.xlsx alongside the cleaned file
