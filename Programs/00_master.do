@@ -1,16 +1,17 @@
 * 00_master.do
-* Purpose: defines this project's data/output/log paths once, then runs the pipeline in order.
-* This is the only file where a Drive path should be hardcoded — every other .do file references
-* the globals below instead of hardcoding its own path, so moving the Drive folder only requires
-* updating one file.
+* Purpose: runs the full cleaning pipeline in order, from the raw file to the validated output.
+* Path globals live in 00_paths.do, not here — that avoids a call cycle, since every individual
+* script also sources 00_paths.do (not this file) to bootstrap standalone runs.
 
 clear all                                  // start from a clean Stata session
 set more off                                // don't pause output waiting on --more--
+cd "/Users/danielatorregibney/Quantitative Analysis/ACH QA/Programs"   // so relative do-calls below resolve regardless of Stata's launch-time cwd
 
-* --- Project paths ---
-global datapath   "/Users/danielatorregibney/Library/CloudStorage/GoogleDrive-daniela.torregibney@bellwether.org/My Drive/ACH - Eval/Data"
-global outputpath "/Users/danielatorregibney/Library/CloudStorage/GoogleDrive-daniela.torregibney@bellwether.org/My Drive/ACH - Eval/Output"
-global logpath    "/Users/danielatorregibney/Library/CloudStorage/GoogleDrive-daniela.torregibney@bellwether.org/My Drive/ACH - Eval/Logs"
+do "00_paths.do"                            // load $datapath/$outputpath/$logpath
 
 * --- Pipeline scripts, run in order ---
-* do "Programs/01_explore_raw.do"
+do "01_explore_raw.do"                     // first look at raw data: describe/codebook/duplicates/missing, read-only
+do "02_reshape_long.do"                    // reshape wide (subgroup-in-varname) to long (subgroup as a variable) + subgroup_type
+do "03_suppression_and_destring.do"        // flag TFS-suppressed cells, then destring the count variables
+do "04_scope_and_missing_flags.do"         // drop ALL aggregate rollup rows; resolves is_peer_school/is_dli_school missingness
+do "05_validate.do"                        // range checks, tier-sum check, count/percent alignment; writes milestones_clean.dta

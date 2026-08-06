@@ -6,7 +6,7 @@
 * this writes a new file to Data/modified.
 
 cd "/Users/danielatorregibney/Quantitative Analysis/ACH QA/Programs"   // ensure relative paths below resolve regardless of Stata's launch-time cwd
-do "00_master.do"                                                      // load $datapath/$outputpath/$logpath globals
+do "00_paths.do"                                                      // load $datapath/$outputpath/$logpath globals
 
 capture log close
 log using "$logpath/02_reshape_long.log", replace
