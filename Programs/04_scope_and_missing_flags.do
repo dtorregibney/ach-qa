@@ -8,7 +8,7 @@
 * judgment call, not a fact derivable from the data itself.
 
 cd "/Users/danielatorregibney/Quantitative Analysis/ACH QA/Programs"
-do "00_master.do"
+do "00_paths.do"
 
 capture log close
 log using "$logpath/04_scope_and_missing_flags.log", replace

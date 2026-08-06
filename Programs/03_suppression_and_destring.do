@@ -5,7 +5,7 @@
 * distinction between "suppressed for privacy" and "no data at all."
 
 cd "/Users/danielatorregibney/Quantitative Analysis/ACH QA/Programs"
-do "00_master.do"
+do "00_paths.do"
 
 capture log close
 log using "$logpath/03_suppression_and_destring.log", replace
